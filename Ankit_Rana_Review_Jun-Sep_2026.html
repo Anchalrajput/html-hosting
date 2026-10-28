@@ -177,6 +177,15 @@ th{color:var(--mute);font-weight:600}
 .four p.lines b{font-weight:650}
 .gbtn .badge{grid-column:1/-1;justify-self:start;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:#E3F0FF;color:#0066CC;margin-top:4px}
 .gbtn .badge.won{background:#0071E3;color:#fff}
+.dtile{display:grid;grid-template-columns:1fr 1fr 260px;gap:20px;margin-top:44px;align-items:stretch}
+@media (max-width:980px){.dtile{grid-template-columns:1fr}}
+.dstat{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;display:flex;flex-direction:column;gap:12px}
+.dstat b{font-size:96px;font-weight:760;letter-spacing:-.05em;line-height:.9;background:linear-gradient(90deg,#2997FF,#BF5AF2);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start}
+.dstat p{color:var(--mute);font-size:17px}
+.dstat strong{color:var(--ink);font-weight:600}
+.dshot{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--s1)}
+.dshot button{display:block;width:100%;height:100%}
+.dshot img{width:100%;height:330px;object-fit:cover;object-position:center 30%;display:block}
 /* initiatives */
 .init{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:44px}
 @media (max-width:980px){.init{grid-template-columns:1fr 1fr}}
@@ -305,6 +314,16 @@ th{color:var(--mute);font-weight:600}
   </div>
 </div></section>
 
+<section class="slide dark" id="digital" data-nav="Digital space"><div class="wrap">
+  <h2>What's happening in the digital space</h2>
+  <div class="dtile">
+    <div class="dstat"><b data-to="2">2</b><h3>Digital tool videos built</h3><p>Walkthrough videos for <strong>PIVV</strong> and <strong>Disprz</strong>, so learners can use each tool on their own.</p></div>
+    <div class="dstat"><b data-to="7">7</b><h3>Languages for the PIVV video</h3><p>The PIVV video is now available in seven languages.</p>
+      <div class="langs"><span>English</span><span>Hindi</span><span>Gujarati</span><span>Marathi</span><span>Punjabi</span><span>Tamil</span><span>Telugu</span></div></div>
+    <div class="dshot" id="dshot"></div>
+  </div>
+</div></section>
+
 <section class="slide light" id="new" data-nav="New initiatives"><div class="wrap">
   <h2>What's new since October</h2>
   <div class="init" id="init"></div>
@@ -312,15 +331,15 @@ th{color:var(--mute);font-weight:600}
 
 <section class="slide white" id="next" data-nav="Next"><div class="wrap">
   <h2>Where digital learning goes next</h2>
+  <p class="lede">Alongside the programmes already running:</p>
   <div class="two solo">
     <div class="next"><ol>
-      <li><div>Take the October initiatives to full implementation<span>PIVV, Level 2.5 e‑learning, vernacular modules</span></div></li>
-      <li><div>Automate learner communication with AI<span>Timely EDMs, fewer follow‑up calls</span></div></li>
-      <li><div>Launch the competitor newspaper<span>First edition in November</span></div></li>
-      <li><div>Run Smart Mantra weekly for BRV / PD<span>Started in October</span></div></li>
-      <li><div>Hold the Master Class<span>Advance ID, Product, Team development</span></div></li>
+      <li><div>Level 2.5 e‑learning for Office Heads, PTM and PWM<span>Extending the format built for PAT office heads</span></div></li>
+      <li><div>Digital tool walkthroughs in regional languages<span>Step‑by‑step application videos, in vernacular</span></div></li>
+      <li><div>Launch the competitor newspaper<span>Monthly, from November</span></div></li>
+      <li><div>AI agent for role‑play scripts in vernacular languages<span>Learners practise customer conversations in their own language</span></div></li>
     </ol>
-    <p class="dirline">From one language to many, from Level 2 to Level 2.5, and from manual follow‑ups to AI‑driven communication.</p></div>
+    <p class="dirline">From one language to many, from Level 2 to Level 2.5, and from reading about a conversation to practising one.</p></div>
   </div>
 </div></section>
 
@@ -462,6 +481,8 @@ const INI=[
 $('#init').innerHTML=INI.map(x=>{const sh=shotsFor(x.k)[0];return '<div class="ini'+(x.w?' wide':'')+'"><span class="st '+x.st+'">'+x.sl+'</span>'+(x.metric?'<div class="metric" data-to="'+parseInt(x.metric)+'" data-suf="%">'+x.metric+'</div>':'')+'<h3>'+x.h+'</h3><p>'+x.p+'</p>'+(x.langs?'<div class="langs">'+x.langs.map(l=>'<span>'+l+'</span>').join('')+'</div>':'')+(sh?'<button class="shot'+(sh.tall?' tall':'')+'" data-s="'+SHOTS.indexOf(sh)+'" aria-label="Enlarge: '+esc(sh.cap)+'"><img alt="'+esc(sh.cap)+'" src="'+sh.src+'"></button>':'')+'</div>'}).join('');
 $('#init').onclick=e=>{const b=e.target.closest('[data-s]');if(b)openLB(SHOTS[+b.dataset.s])};
 
+
+const cs=shotsFor('pivv')[0];if(cs){$('#dshot').innerHTML='<button data-s="'+SHOTS.indexOf(cs)+'" aria-label="Enlarge: '+esc(cs.cap)+'"><img alt="'+esc(cs.cap)+'" src="'+cs.src+'"></button>';$('#dshot').onclick=()=>openLB(cs)}
 
 /* all evidence */
 if(SHOTS.length){$('#evidence').hidden=false;
